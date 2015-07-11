@@ -3,12 +3,32 @@
 <head>
   <meta charset=utf-8>
   <script src="https://cdn.firebase.com/js/client/2.2.7/firebase.js"></script>
+  <script type="text/javascript" src="../js/external/jscolor/jscolor.js"></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
   <title>Zero Admin</title>
-  <script>
-
-  </script>
 </head>
 <body>
-  Hello World
+  <input id="color" class="color" value="66ff00">
+  <button id="addColor">Add Color</button>
+  <div id="colors">
+    <strong>Colors added:</strong>
+  </div>
+
+<script type="text/javascript">
+  var myFirebaseRef = new Firebase("https://burning-heat-360.firebaseio.com/");
+  var addColorBtn = $("#addColor");
+  addColorBtn.on("click", function() {
+    var colorCode = $("#color").val();
+    myFirebaseRef.push({
+      color: colorCode
+    });
+  });
+  myFirebaseRef.on("child_added", function(snapshot) {
+    var data = snapshot.val()
+    var color = $("<div>"+ data.color +"</div>")
+    $("#colors").append(color);
+  });
+</script>
+
 </body>
 </html>
