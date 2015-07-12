@@ -149,14 +149,15 @@
       });
 
       //actual starts here
-      var myFirebaseRef = new Firebase("https://burning-heat-360.firebaseio.com/");
+      var myFirebaseRef = new Firebase("https://burning-heat-360.firebaseio.com/colors/");
       var addColorBtn = $(".color-picker.btn");
       addColorBtn.on("click", function(btn) {
         var colorCode = $(btn.currentTarget);
         var objWrapper = $('.obj-wrapper');
         objWrapper.css('background-color', colorCode.css('background-color'));
         myFirebaseRef.push({
-          color: colorCode.css('background-color')
+          color: colorCode.css('background-color'),
+          time: new Date().getTime()
         });
       });
       var addAnimationBtn = $(".ani-picker.btn");
