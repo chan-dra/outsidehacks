@@ -151,6 +151,14 @@
       //actual starts here
       var myFirebaseRef = new Firebase("https://burning-heat-360.firebaseio.com/colors/");
       var addColorBtn = $(".color-picker.btn");
+
+      myFirebaseRef.limitToLast(1).on("child_added", function(snapshot) {
+        var data = snapshot.val()
+        if (data.color) {
+          $('.obj-wrapper').css('background-color', data.color);
+        }
+      });
+
       addColorBtn.on("click", function(btn) {
         var colorCode = $(btn.currentTarget);
         var objWrapper = $('.obj-wrapper');
