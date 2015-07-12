@@ -79,9 +79,7 @@
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 desc">
           <button class="color-picker btn" style="background-color:blue;"></button>
         </div><!-- col-lg-3 -->
-      </div><!-- /row -->
 
-      <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 desc">
           <button class="color-picker btn" style="background-color:yellow;"></button>
         </div><!-- col-lg-3 -->
@@ -97,9 +95,7 @@
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 desc">
           <button class="color-picker btn" style="background-color:blue;"></button>
         </div><!-- col-lg-3 -->
-      </div><!-- /row -->
 
-      <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 desc">
           <button class="color-picker btn" style="background-color:yellow;"></button>
         </div><!-- col-lg-3 -->
@@ -115,9 +111,7 @@
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 desc">
           <button class="color-picker btn" style="background-color:blue;"></button>
         </div><!-- col-lg-3 -->
-      </div><!-- /row -->
 
-      <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 desc">
           <button class="color-picker btn" style="background-color:yellow;"></button>
         </div><!-- col-lg-3 -->
@@ -130,9 +124,6 @@
           <button class="color-picker btn" style="background-color:white;"></button>
         </div><!-- col-lg-3 -->
 
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 desc">
-          <button class="color-picker btn" style="background-color:blue;"></button>
-        </div><!-- col-lg-3 -->
       </div><!-- /row -->
 
           </div>
@@ -174,6 +165,8 @@
       var addColorBtn = $(".color-picker.btn");
       addColorBtn.on("click", function(btn) {
         var colorCode = $(btn.currentTarget);
+        var objWrapper = $('.obj-wrapper')
+        objWrapper.css('background-color', colorCode.css('background-color'))
         myFirebaseRef.push({
           color: colorCode.css('background-color')
         });

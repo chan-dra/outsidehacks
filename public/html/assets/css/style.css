@@ -109,9 +109,14 @@ h1, h2, h3, h4, h5, h6 {
 .color-picker {
   height:100px;
   width:100px;
+  float: left !important;
 }
 
-.color-picker:hover {
+.col-xs-3 {
+	width: 130px;
+}
+
+.color-picker:active {
   border-radius: 50px;
 }
 
