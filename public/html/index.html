@@ -8,26 +8,45 @@
   <title>Zero Admin</title>
 </head>
 <body>
-  <input id="color" class="color" value="66ff00">
-  <button id="addColor">Add Color</button>
   <div id="colors">
-    <strong>Colors added:</strong>
+
   </div>
 
 <script type="text/javascript">
+  var createColor = function(){
+    var b, color, g, generateHex, r, yiq;
+    generateHex = function() {
+      return (Math.floor((Math.random() * (1 - .1) + .1) * (1 << 24))).toString(16);
+    };
+    color = generateHex();
+    r = parseInt(color.substr(0, 2), 16);
+    g = parseInt(color.substr(2, 2), 16);
+    b = parseInt(color.substr(4, 2), 16);
+    yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    if (yiq >= 128) {
+      return this.createColor();
+    } else {
+      return '#' + color;
+    }
+  }
   var myFirebaseRef = new Firebase("https://burning-heat-360.firebaseio.com/");
-  var addColorBtn = $("#addColor");
-  addColorBtn.on("click", function() {
-    var colorCode = $("#color").val();
+  for (var i = 0; i < 30; i++) {
+    var clr = createColor()
+    var clrDiv = $("<div class='addColor' data-color="+ clr +" style='background-color:" + clr + ";width:30px;height:30px;float:left;'></div>");
+    $("#colors").append(clrDiv);
+  }
+  var addColorBtn = $(".addColor");
+  addColorBtn.on("click", function(btn) {
+    var colorCode = $(btn.currentTarget).data('color');
     myFirebaseRef.push({
       color: colorCode
     });
   });
-  myFirebaseRef.on("child_added", function(snapshot) {
+  /*myFirebaseRef.limitToLast(1).on("child_added", function(snapshot) {
     var data = snapshot.val()
     var color = $("<div>"+ data.color +"</div>")
     $("#colors").append(color);
-  });
+  });*/
 </script>
 
 </body>
