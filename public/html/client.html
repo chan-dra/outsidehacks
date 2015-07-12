@@ -106,8 +106,13 @@
   </style>
 </head>
 <body>
+
 <div id="div1">
+  <div>
+    <img src="oh-logo.png" height="40px">
+  </div>
 </div>
+
 <script type="text/javascript">
   var myFirebaseRef = new Firebase("https://burning-heat-360.firebaseio.com/colors/");
   myFirebaseRef.limitToLast(1).on("child_added", function(snapshot) {
