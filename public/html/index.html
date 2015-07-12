@@ -31,7 +31,7 @@
   <body data-spy="scroll" data-offset="0" data-target="#theMenu">
 
 	<!-- Menu -->
-	<nav class="menu" id="theMenu">
+	<!-- <nav class="menu" id="theMenu">
 		<div class="menu-wrap">
 			<h1 class="logo"><a href="index3.html#home">ZEROS</a></h1>
 			<i class="fa fa-times menu-close"></i>
@@ -42,11 +42,11 @@
 			<a href="#"><i class="fa fa-twitter"></i></a>
 			<a href="#"><i class="fa fa-dribbble"></i></a>
 			<a href="#"><i class="fa fa-envelope"></i></a>
-		</div>
+		</div> -->
 
 		<!-- Menu button -->
-		<div id="menuToggle"><i class="fa fa-bars"></i></div>
-	</nav>
+		<!-- <div id="menuToggle"><i class="fa fa-bars"></i></div>
+	</nav> -->
 
 	<section id="portfolio" name="portfolio"></section>
   <div id="headerwrap">
@@ -168,6 +168,8 @@
           objWrapper.removeClass('fader');
           objWrapper.removeClass('flicker');
         } else {
+          objWrapper.removeClass('fader');
+          objWrapper.removeClass('flicker');
           objWrapper.addClass(ani.attr('name'));
         }
         myFirebaseRef.push({
