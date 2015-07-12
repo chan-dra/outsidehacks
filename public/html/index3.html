@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8>
+  <script src="https://cdn.firebase.com/js/client/2.2.7/firebase.js"></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
+  <title>Zero Admin</title>
+</head>
+<body>
+  <div id="colors">
+
+  </div>
+
+<script type="text/javascript">
+  var createColor = function(){
+    var b, color, g, generateHex, r, yiq;
+    generateHex = function() {
+      return (Math.floor((Math.random() * (1 - .1) + .1) * (1 << 24))).toString(16);
+    };
+    color = generateHex();
+    r = parseInt(color.substr(0, 2), 16);
+    g = parseInt(color.substr(2, 2), 16);
+    b = parseInt(color.substr(4, 2), 16);
+    yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    if (yiq >= 128) {
+      return this.createColor();
+    } else {
+      return '#' + color;
+    }
+  }
+  var myFirebaseRef = new Firebase("https://burning-heat-360.firebaseio.com/");
+  for (var i = 0; i < 30; i++) {
+    var clr = createColor()
+    var clrDiv = $("<div class='addColor' data-color="+ clr +" style='background-color:" + clr + ";width:200px;height:200px;float:left;'></div>");
+    $("#colors").append(clrDiv);
+  }
+  var addColorBtn = $(".addColor");
+  addColorBtn.on("click", function(btn) {
+    var colorCode = $(btn.currentTarget).data('color');
+    myFirebaseRef.push({
+      color: colorCode
+    });
+  });
+</script>
+
+</body>
+</html>
