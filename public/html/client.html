@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset=utf-8>
+  <script src="https://cdn.firebase.com/js/client/2.2.7/firebase.js"></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
+  <title>Zero Admin</title>
+  <style type="text/css">
+    .flicker {
+      -webkit-animation: flkr 1s linear infinite;
+      -moz-animation: flkr 1s linear infinite;
+      -o-animation: flkr 1s linear infinite;
+      animation: flkr 1s linear infinite;
+    }
+
+    @-webkit-keyframes flkr {
+      0%,12%,18.999%,23%,31.999%,37%,44.999%,46%,49.999%,51%,58.999%,61%,68.999%,71%,85.999%,96%,100% {
+        opacity:0.99;
+      }
+      19%,22.99%,32%,36.999%,45%,45.999%,50%,50.99%,59%,60.999%,69%,70.999%,86%,95.999% {
+        opacity:0.4; text-shadow: none;
+      }
+    }
+
+    @-moz-keyframes flkr {
+      0%,12%,18.999%,23%,31.999%,37%,44.999%,46%,49.999%,51%,58.999%,61%,68.999%,71%,85.999%,96%,100% {
+        opacity:0.99;
+      }
+      19%,22.99%,32%,36.999%,45%,45.999%,50%,50.99%,59%,60.999%,69%,70.999%,86%,95.999% {
+        opacity:0.4; text-shadow: none;
+      }
+    }
+
+    @-o-keyframes flkr {
+      0%,12%,18.999%,23%,31.999%,37%,44.999%,46%,49.999%,51%,58.999%,61%,68.999%,71%,85.999%,96%,100% {
+        opacity:0.99;
+      }
+      19%,22.99%,32%,36.999%,45%,45.999%,50%,50.99%,59%,60.999%,69%,70.999%,86%,95.999% {
+        opacity:0.4; text-shadow: none;
+      }
+    }
+
+    @keyframes flkr {
+      0%,12%,18.999%,23%,31.999%,37%,44.999%,46%,49.999%,51%,58.999%,61%,68.999%,71%,85.999%,96%,100% {
+        opacity:0.99;
+      }
+      19%,22.99%,32%,36.999%,45%,45.999%,50%,50.99%,59%,60.999%,69%,70.999%,86%,95.999% {
+        opacity:0.4; text-shadow: none;
+      }
+    }
+
+    .fader {
+      -webkit-animation: fdr 1s linear infinite;
+      -moz-animation: fdr 1s linear infinite;
+      -o-animation: fdr 1s linear infinite;
+      animation: fdr 1s linear infinite;
+    }
+
+    @-webkit-keyframes fdr {
+      0%{
+        opacity:0.99;
+      }
+      100%{
+        opacity:0.4; text-shadow: none;
+      }
+    }
+
+    @-moz-keyframes fdr {
+      0%{
+        opacity:0.99;
+      }
+      100%{
+        opacity:0.4; text-shadow: none;
+      }
+    }
+
+    @-o-keyframes fdr {
+      0%{
+        opacity:0.99;
+      }
+      100%{
+        opacity:0.4; text-shadow: none;
+      }
+    }
+
+    @keyframes fdr {
+      0%{
+        opacity:0.99;
+      }
+      100%{
+        opacity:0.4; text-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<script type="text/javascript">
+  var myFirebaseRef = new Firebase("https://burning-heat-360.firebaseio.com/colors/");
+  myFirebaseRef.limitToLast(1).on("child_added", function(snapshot) {
+    var data = snapshot.val()
+    if (data.color) {
+      $("body").css('background-color', data.color);
+    }
+    console.log(data);
+    if (data.classType) {
+      if (data.classType != 'none') {
+        $("body").addClass(data.classType)
+      } else {
+        $("body").removeClass("flicker")
+        $("body").removeClass("fader")
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
