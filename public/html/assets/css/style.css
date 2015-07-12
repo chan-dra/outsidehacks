@@ -92,6 +92,10 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 
+.well {
+  background-color: #DAD9D9;
+}
+
 .obj-wrapper {
   width:80%;
   min-height:40px;
@@ -109,11 +113,14 @@ h1, h2, h3, h4, h5, h6 {
 .color-picker {
   height:100px;
   width:100px;
-  float: left !important;
+  /*float: left !important;*/
 }
 
-.col-xs-3 {
-	width: 130px;
+.ani-picker {
+  height:100px;
+  width:150px;
+  box-shadow: 0px 0px 25px #888888;
+  /*float: left !important;*/
 }
 
 .color-picker:active {
@@ -519,4 +526,90 @@ h1, h2, h3, h4, h5, h6 {
 
 .desc {
 	margin-top: 25px;
+}
+
+.flicker {
+  -webkit-animation: flkr 1s linear infinite;
+  -moz-animation: flkr 1s linear infinite;
+  -o-animation: flkr 1s linear infinite;
+  animation: flkr 1s linear infinite;
+}
+
+@-webkit-keyframes flkr {
+  0%,12%,18.999%,23%,31.999%,37%,44.999%,46%,49.999%,51%,58.999%,61%,68.999%,71%,85.999%,96%,100% {
+    opacity:0.99; 
+  }
+  19%,22.99%,32%,36.999%,45%,45.999%,50%,50.99%,59%,60.999%,69%,70.999%,86%,95.999% { 
+    opacity:0.4; text-shadow: none; 
+  }
+}
+
+@-moz-keyframes flkr {
+  0%,12%,18.999%,23%,31.999%,37%,44.999%,46%,49.999%,51%,58.999%,61%,68.999%,71%,85.999%,96%,100% {
+    opacity:0.99; 
+  }
+  19%,22.99%,32%,36.999%,45%,45.999%,50%,50.99%,59%,60.999%,69%,70.999%,86%,95.999% { 
+    opacity:0.4; text-shadow: none; 
+  }
+}
+
+@-o-keyframes flkr {
+  0%,12%,18.999%,23%,31.999%,37%,44.999%,46%,49.999%,51%,58.999%,61%,68.999%,71%,85.999%,96%,100% {
+    opacity:0.99; 
+  }
+  19%,22.99%,32%,36.999%,45%,45.999%,50%,50.99%,59%,60.999%,69%,70.999%,86%,95.999% { 
+    opacity:0.4; text-shadow: none; 
+  }
+}
+
+@keyframes flkr {
+  0%,12%,18.999%,23%,31.999%,37%,44.999%,46%,49.999%,51%,58.999%,61%,68.999%,71%,85.999%,96%,100% {
+    opacity:0.99; 
+  }
+  19%,22.99%,32%,36.999%,45%,45.999%,50%,50.99%,59%,60.999%,69%,70.999%,86%,95.999% { 
+    opacity:0.4; text-shadow: none; 
+  }
+}
+
+.fader {
+  -webkit-animation: fdr 1s linear infinite;
+  -moz-animation: fdr 1s linear infinite;
+  -o-animation: fdr 1s linear infinite;
+  animation: fdr 1s linear infinite;
+}
+
+@-webkit-keyframes fdr {
+  0%{
+    opacity:0.99; 
+  }
+  100%{ 
+    opacity:0.4; text-shadow: none; 
+  }
+}
+
+@-moz-keyframes fdr {
+  0%{
+    opacity:0.99; 
+  }
+  100%{ 
+    opacity:0.4; text-shadow: none; 
+  }
+}
+
+@-o-keyframes fdr {
+  0%{
+    opacity:0.99; 
+  }
+  100%{ 
+    opacity:0.4; text-shadow: none; 
+  }
+}
+
+@keyframes fdr {
+  0%{
+    opacity:0.99; 
+  }
+  100%{ 
+    opacity:0.4; text-shadow: none; 
+  }
 }
