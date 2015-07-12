@@ -5,7 +5,7 @@
   <meta charset=utf-8>
   <script src="https://cdn.firebase.com/js/client/2.2.7/firebase.js"></script>
   <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
-  <title>ZEROS</title>
+  <title>Zero Admin</title>
   <style type="text/css">
     #div1 {
       position: fixed;
@@ -106,8 +106,13 @@
   </style>
 </head>
 <body>
+
 <div id="div1">
+  <div>
+    <img src="oh-logo.png" height="40px">
+  </div>
 </div>
+
 <script type="text/javascript">
   var myFirebaseRef = new Firebase("https://burning-heat-360.firebaseio.com/colors/");
   myFirebaseRef.limitToLast(1).on("child_added", function(snapshot) {
