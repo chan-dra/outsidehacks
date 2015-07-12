@@ -173,6 +173,7 @@
           objWrapper.addClass(ani.attr('name'));
         }
         myFirebaseRef.push({
+          color: ani.css('background-color'),
           time: new Date().getTime(),
           classType: ani.attr('name')
         });
