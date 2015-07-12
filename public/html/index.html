@@ -154,8 +154,17 @@
 
       myFirebaseRef.limitToLast(1).on("child_added", function(snapshot) {
         var data = snapshot.val()
+        var objWrapper = $('.obj-wrapper')
         if (data.color) {
-          $('.obj-wrapper').css('background-color', data.color);
+          objWrapper.css('background-color', data.color);
+        }
+        if (data.classType) {
+          if (data.classType === 'none') {
+            objWrapper.removeClass('fader');
+            objWrapper.removeClass('flicker');
+          } else {
+            objWrapper.addClass(data.classType);
+          }
         }
       });
 
