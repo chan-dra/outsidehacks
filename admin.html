@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="shortcut icon" href="public/html/assets/ico/favicon.ico">
+  <!-- <link rel="shortcut icon" href="public/html/assets/ico/favicon.ico"> -->
 
   <title>ZEROS</title>
 
@@ -17,6 +17,7 @@
   <link href="public/html/assets/css/style.css" rel="stylesheet">
   <link href="public/html/assets/css/font-awesome.min.css" rel="stylesheet">
   <link href="public/html/assets/js/fancybox/jquery.fancybox.css" rel="stylesheet" />
+  <script src="https://w.soundcloud.com/player/api.js"></script>
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -66,7 +67,10 @@
       </div>
       <div class="row">
         <div class="col-md-offset-4 col-md-2">
-          <input class="form-control" id="newLoopName">
+          <input class="form-control" id="newLoopName" placeholder="Name">
+        </div>
+        <div class="col-md-2">
+          <input class="form-control" id="newLoopSongName" placeholder="Link">
         </div>
         <div class="col-md-1">
           <button class="btn btn-info" id="next"><i class="fa fa-hand-o-right"></i>&nbsp;&nbsp;Next</button>
@@ -76,6 +80,7 @@
         </div> -->
       </div>
       <div class="row">
+        <iframe class="saveLoopSong" id="sc-widget" width="80%" height="120" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=true"></iframe>
         <div class="col-md-offset-3 col-md-3 saveLoop">
           <i class="fa fa-circle fader" style="color:red;"></i>&nbsp;&nbsp;RECORDING
         </div>
@@ -91,7 +96,6 @@
       <!-- <button class="btn btn-danger" id="newLoop">Record a new loop</button> -->
       
     </div>
-    <br>
     <br>
     <!-- <button class="btn btn-default" id="existingLoops">See Existing Loops</button> -->
     <div id="loops">
@@ -172,6 +176,7 @@
   <script src="public/html/assets/js/jquery.stellar.min.js"></script>
   <script src="public/html/assets/js/fancybox/jquery.fancybox.js"></script>
   <script src="public/html/assets/js/main.js"></script>
+  <script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
   <script>
     $(function(){
       $.stellar({
@@ -182,6 +187,18 @@
   </script>
 
   <script type="text/javascript">
+  (function(){
+    
+    // widget.bind(SC.Widget.Events.READY, function() {
+    //   // load new widget
+    //   widget.bind(SC.Widget.Events.FINISH, function() {
+    //     widget.load(newSoundUrl, {
+    //       show_artwork: false
+    //     });
+    //   });
+    // });
+
+  }());
     $(function() {
       //    fancybox
       jQuery(".fancybox").fancybox();
@@ -224,15 +241,19 @@
     var currentLoop = [];
     var recordLoop = false;
     $('#newLoopName').hide();
+    $('#newLoopSongName').hide();
     $('.saveLoop').hide();
+    $('.saveLoopSong').hide();
     $('#next').hide();
     $('#loops').hide();
     newLoopBtn.on("click", function() {
       currentLoop = [];
       $('#newLoopName').val('');
+      $('#newLoopSongName').val('');
       recordLoop = true;
       $('.colors').hide();
       $('#newLoopName').show();
+      $('#newLoopSongName').show();
       $('#existingLoops').hide()
       $('#next').show();
       newLoopBtn.hide()
@@ -241,9 +262,19 @@
     $('#next').on('click', function() {
       $('.colors').show();
       $('#newLoopName').hide();
+      $('#newLoopSongName').hide();
       $('#existingLoops').hide();
       $('.saveLoop').show();
+      $('.saveLoopSong').show();
       $('#next').hide();
+      var widgetIframe = document.getElementById('sc-widget'),
+        widget       = SC.Widget(widgetIframe),
+        newSoundUrl = 'http://api.soundcloud.com/tracks/193781466';
+      widget.load(newSoundUrl, {
+            show_artwork: true,
+            auto_play:true,
+            hide_related:true
+          });
     });
 
     $('#existingLoops').on('click', function() {
@@ -267,6 +298,7 @@
       //save to firebase
       loopRef.push(loop);
       $('.saveLoop').hide();
+      $('.saveLoopSong').hide();
       $('#existingLoops').show()
       $('#existingLoops').click()
       newLoopBtn.show()
