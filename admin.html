@@ -54,6 +54,7 @@
       <div class="obj-wrapper">
 
       </div>
+      <iframe class="playLoopSong" id="sc-widget" width="80%" height="120" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=true"></iframe>
       <div class="row">
         <div class="col-md-offset-4 col-md-2">
           <button class="btn btn-danger" id="newLoop"><img src="public/html/assets/img/tape.png" width="18px"/>&nbsp;&nbsp;Record a new loop</button>
@@ -240,6 +241,7 @@
     var newLoopBtn = $("#newLoop");
     var currentLoop = [];
     var recordLoop = false;
+    $(".playLoopSong").hide();
     $('#newLoopName').hide();
     $('#newLoopSongName').hide();
     $('.saveLoop').hide();
@@ -297,6 +299,9 @@
       }
       //save to firebase
       loopRef.push(loop);
+      var widgetIframe = document.getElementById('sc-widget'),
+        widget       = SC.Widget(widgetIframe);
+      widget.pause();
       $('.saveLoop').hide();
       $('.saveLoopSong').hide();
       $('#existingLoops').show()
@@ -311,6 +316,15 @@
       }
     }
     var loopClickFn = function(e) {
+      $(".playLoopSong").show();
+      var widgetIframe = document.getElementById('sc-widget'),
+      widget       = SC.Widget(widgetIframe),
+      newSoundUrl = 'http://api.soundcloud.com/tracks/193781466';
+      widget.load(newSoundUrl, {
+          show_artwork: true,
+          auto_play:true,
+          hide_related:true
+        });
       var a = $(e.currentTarget);
       if (loopsAvailable[a.text()]) {
         var runningLoop = loopsAvailable[a.text()];
