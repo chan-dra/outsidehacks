@@ -156,8 +156,6 @@
     var addColorBtn = $(".color-picker.btn");
     addColorBtn.on("click", function(btn) {
       var colorCode = $(btn.currentTarget);
-      var objWrapper = $('.obj-wrapper');
-      objWrapper.css('background-color', colorCode.css('background-color'));
       if (recordLoop) {
         currentLoop.push({
           time: new Date().getTime(),
@@ -173,13 +171,6 @@
     var addAnimationBtn = $(".ani-picker.btn");
     addAnimationBtn.on("click", function(btn) {
       var ani = $(btn.currentTarget);
-      var objWrapper = $('.obj-wrapper');
-      if (ani.attr('name') === 'none') {
-        objWrapper.removeClass('fader');
-        objWrapper.removeClass('flicker');
-      } else {
-        objWrapper.addClass(ani.attr('name'));
-      }
       if (recordLoop) {
         currentLoop.push({
           time: new Date().getTime(),
@@ -243,6 +234,22 @@
         $('#loops').append(loopDiv);
       }
     })
+    myFirebaseRef.limitToLast(1).on("child_added", function(snapshot) {
+      var data = snapshot.val()
+      if (data.color) {
+        $('.obj-wrapper').css('background-color', data.color);
+      }
+      if (data.classType) {
+        if (data.classType != 'none') {
+          $('.obj-wrapper').removeClass('fader');
+          $('.obj-wrapper').removeClass('flicker');
+          $('.obj-wrapper').addClass(data.classType)
+        } else {
+          $('.obj-wrapper').removeClass("flicker")
+          $('.obj-wrapper').removeClass("fader")
+        }
+      }
+    });
   </script>
 </div>
 </body>
