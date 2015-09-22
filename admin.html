@@ -54,13 +54,15 @@
 
       </div>
       <input id="newLoopName">
-      <button id="newLoop">Create New Loop</button>
+      <button id="next">Next</button>
+      <button id="newLoop">Record a new loop</button>
       <button id="saveLoop">Save Loop</button>
     </div>
+    <button id="existingLoops">Existing Loops</button>
     <div id="loops">
     </div>
 
-    <div class="row">
+    <div class="row colors">
       <div class="well" style="margin-left:20px;margin-right:20px;">
         <div class="row">
 
@@ -186,13 +188,35 @@
     var newLoopBtn = $("#newLoop");
     var currentLoop = [];
     var recordLoop = false;
+    $('#newLoopName').hide();
+    $('#saveLoop').hide();
+    $('#next').hide();
+    $('#loops').hide();
     newLoopBtn.on("click", function() {
       recordLoop = true;
+      $('.colors').hide();
+      $('#newLoopName').show();
+      $('#existingLoops').hide()
+      $('#next').show();
+      newLoopBtn.hide()
     });
+
+    $('#next').on('click', function() {
+      $('.colors').show();
+      $('#newLoopName').hide();
+      $('#existingLoops').hide();
+      $('#saveLoop').show();
+      $('#next').hide();
+    });
+
+    $('#existingLoops').on('click', function() {
+      $('.colors').toggle();
+      $('#loops').toggle();
+    });
+
     var saveLoop = $("#saveLoop");
     saveLoop.on("click", function() {
       recordLoop = false;
-      console.log(currentLoop);
       var loopName = $("#newLoopName").val();
       for (var i = currentLoop.length - 1; i > 0; i--) {
         var current = currentLoop[i];
@@ -205,6 +229,11 @@
       }
       //save to firebase
       loopRef.push(loop);
+      $('#saveLoop').hide();
+      $('#existingLoops').show()
+      $('#existingLoops').click()
+      newLoopBtn.show()
+
     });
     var loopsAvailable = {};
     var addFn = function (loopVal) {
