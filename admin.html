@@ -53,12 +53,47 @@
       <div class="obj-wrapper">
 
       </div>
-      <input id="newLoopName">
-      <button id="next">Next</button>
-      <button id="newLoop">Record a new loop</button>
-      <button id="saveLoop">Save Loop</button>
+      <div class="row">
+        <div class="col-md-offset-4 col-md-2">
+          <button class="btn btn-danger" id="newLoop"><img src="public/html/assets/img/tape.png" width="18px"/>&nbsp;&nbsp;Record a new loop</button>
+        </div>
+        <div class="col-md-1">
+          <button class="btn btn-warning" id="existingLoops"><i class="fa fa-eye"></i>&nbsp;&nbsp;See Existing Loops</button>
+        </div>
+        <!-- <div class="col-md-1">
+          <button class="btn btn-success" id="saveLoop">Stop and Save</button>
+        </div> -->
+      </div>
+      <div class="row">
+        <div class="col-md-offset-4 col-md-2">
+          <input class="form-control" id="newLoopName">
+        </div>
+        <div class="col-md-1">
+          <button class="btn btn-info" id="next"><i class="fa fa-hand-o-right"></i>&nbsp;&nbsp;Next</button>
+        </div>
+        <!-- <div class="col-md-1">
+          <button class="btn btn-success" id="saveLoop">Stop and Save</button>
+        </div> -->
+      </div>
+      <div class="row">
+        <div class="col-md-offset-3 col-md-3 saveLoop">
+          <i class="fa fa-circle fader" style="color:red;"></i>&nbsp;&nbsp;RECORDING
+        </div>
+        <div class="col-md-1">
+          <button class="btn btn-success saveLoop" id="saveLoop">Save Loop</button>
+        </div>
+        <!-- <div class="col-md-1">
+          <button class="btn btn-success" id="saveLoop">Stop and Save</button>
+        </div> -->
+      </div>
+      
+      
+      <!-- <button class="btn btn-danger" id="newLoop">Record a new loop</button> -->
+      
     </div>
-    <button id="existingLoops">Existing Loops</button>
+    <br>
+    <br>
+    <!-- <button class="btn btn-default" id="existingLoops">See Existing Loops</button> -->
     <div id="loops">
     </div>
 
@@ -66,37 +101,37 @@
       <div class="well" style="margin-left:20px;margin-right:20px;">
         <div class="row">
 
-          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 desc">
+          <div class="col-lg-offset-2 col-lg-1 col-md-offset-2 col-md-1 col-sm-3 col-xs-6 desc">
             <button class="color-picker btn" style="background-color:green;"></button>
-          </div><!-- col-lg-3 -->
+          </div><!-- col-lg-1 -->
 
-          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 desc">
+          <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6 desc">
             <button class="color-picker btn" style="background-color:red;"></button>
-          </div><!-- col-lg-3 -->
+          </div><!-- col-lg-1 -->
 
-          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 desc">
+          <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6 desc">
             <button class="color-picker btn" style="background-color:blue;"></button>
-          </div><!-- col-lg-3 -->
+          </div><!-- col-lg-1 -->
 
-          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 desc">
+          <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6 desc">
             <button class="color-picker btn" style="background-color:black;"></button>
-          </div><!-- col-lg-3 -->
+          </div><!-- col-lg-1 -->
 
-          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 desc">
+          <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6 desc">
             <button class="color-picker btn" style="background-color:yellow;"></button>
-          </div><!-- col-lg-3 -->
+          </div><!-- col-lg-1 -->
 
-          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 desc">
+          <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6 desc">
             <button class="color-picker btn" style="background-color:violet;"></button>
-          </div><!-- col-lg-3 -->
+          </div><!-- col-lg-1 -->
 
-          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 desc">
+          <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6 desc">
             <button class="color-picker btn" style="background-color:orange;"></button>
-          </div><!-- col-lg-3 -->
+          </div><!-- col-lg-1 -->
 
-          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 desc">
+          <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6 desc">
             <button class="color-picker btn" style="background-color:white;"></button>
-          </div><!-- col-lg-3 -->
+          </div><!-- col-lg-1 -->
 
         </div><!-- /row -->
 
@@ -189,10 +224,12 @@
     var currentLoop = [];
     var recordLoop = false;
     $('#newLoopName').hide();
-    $('#saveLoop').hide();
+    $('.saveLoop').hide();
     $('#next').hide();
     $('#loops').hide();
     newLoopBtn.on("click", function() {
+      currentLoop = [];
+      $('#newLoopName').val('');
       recordLoop = true;
       $('.colors').hide();
       $('#newLoopName').show();
@@ -205,7 +242,7 @@
       $('.colors').show();
       $('#newLoopName').hide();
       $('#existingLoops').hide();
-      $('#saveLoop').show();
+      $('.saveLoop').show();
       $('#next').hide();
     });
 
@@ -214,7 +251,7 @@
       $('#loops').toggle();
     });
 
-    var saveLoop = $("#saveLoop");
+    var saveLoop = $(".saveLoop");
     saveLoop.on("click", function() {
       recordLoop = false;
       var loopName = $("#newLoopName").val();
@@ -229,7 +266,7 @@
       }
       //save to firebase
       loopRef.push(loop);
-      $('#saveLoop').hide();
+      $('.saveLoop').hide();
       $('#existingLoops').show()
       $('#existingLoops').click()
       newLoopBtn.show()
