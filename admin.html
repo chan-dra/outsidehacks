@@ -53,6 +53,11 @@
       <div class="obj-wrapper">
 
       </div>
+      <input id="newLoopName">
+      <button id="newLoop">Create New Loop</button>
+      <button id="saveLoop">Save Loop</button>
+    </div>
+    <div id="loops">
     </div>
 
     <div class="row">
@@ -147,15 +152,23 @@
 
     //actual starts here
     var myFirebaseRef = new Firebase("https://burning-heat-360.firebaseio.com/colors/");
+    var loopRef = new Firebase("https://burning-heat-360.firebaseio.com/loops/");
     var addColorBtn = $(".color-picker.btn");
     addColorBtn.on("click", function(btn) {
       var colorCode = $(btn.currentTarget);
       var objWrapper = $('.obj-wrapper');
       objWrapper.css('background-color', colorCode.css('background-color'));
-      myFirebaseRef.push({
-        color: colorCode.css('background-color'),
-        time: new Date().getTime()
-      });
+      if (recordLoop) {
+        currentLoop.push({
+          time: new Date().getTime(),
+          color: colorCode.css('background-color')
+        });
+      } else {
+        myFirebaseRef.push({
+          color: colorCode.css('background-color'),
+          time: new Date().getTime()
+        });
+      }
     });
     var addAnimationBtn = $(".ani-picker.btn");
     addAnimationBtn.on("click", function(btn) {
@@ -167,11 +180,69 @@
       } else {
         objWrapper.addClass(ani.attr('name'));
       }
-      myFirebaseRef.push({
-        time: new Date().getTime(),
-        classType: ani.attr('name')
-      });
+      if (recordLoop) {
+        currentLoop.push({
+          time: new Date().getTime(),
+          classType: ani.attr('name')
+        });
+      } else {
+        myFirebaseRef.push({
+          time: new Date().getTime(),
+          classType: ani.attr('name')
+        });
+      }
     });
+    var newLoopBtn = $("#newLoop");
+    var currentLoop = [];
+    var recordLoop = false;
+    newLoopBtn.on("click", function() {
+      recordLoop = true;
+    });
+    var saveLoop = $("#saveLoop");
+    saveLoop.on("click", function() {
+      recordLoop = false;
+      console.log(currentLoop);
+      var loopName = $("#newLoopName").val();
+      for (var i = currentLoop.length - 1; i > 0; i--) {
+        var current = currentLoop[i];
+        current.time = current.time - currentLoop[i-1].time
+      }
+      currentLoop[0].time = 0;
+      var loop = {
+        name: loopName,
+        list: currentLoop
+      }
+      //save to firebase
+      loopRef.push(loop);
+    });
+    var loopsAvailable = {};
+    var addFn = function (loopVal) {
+      return function() {
+        myFirebaseRef.push(loopVal);
+      }
+    }
+    var loopClickFn = function(e) {
+      var a = $(e.currentTarget);
+      if (loopsAvailable[a.text()]) {
+        var runningLoop = loopsAvailable[a.text()];
+        var tm = 2;
+        for (var i = 0 ; i < runningLoop.list.length; i++) {
+          tm += runningLoop.list[i].time;
+          setTimeout(addFn(runningLoop.list[i]), tm);
+        }
+      }
+    }
+    loopRef.on('value', function(snapshot) {
+      $("#loops").empty();
+      var loops = snapshot.val();
+      for (var key in loops) {
+        var loop = loops[key];
+        loopsAvailable[loop.name] = loop;
+        var loopDiv = $("<a id='loop'>"+loop.name+"</a><br/>");
+        loopDiv.on('click', loopClickFn)
+        $('#loops').append(loopDiv);
+      }
+    })
   </script>
 </div>
 </body>
