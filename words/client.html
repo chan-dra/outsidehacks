@@ -11,7 +11,8 @@
       console.log(query);
       myDataRef.on("value", function(snapshot) {
         if(snapshot.val()[query] != undefined) {
-          document.getElementById('demo').innerHTML = snapshot.val()[query];
+          var word = snapshot.val();
+          document.getElementById('demo').innerHTML = word[word.length - query - 1];
         }
       });
       myDataRef2.on("child_added", function(snapshot) {
