@@ -260,7 +260,8 @@
       $('#next').show();
       newLoopBtn.hide()
     });
-
+    var widgetIframe = document.getElementById('sc-widget');
+    var widget       = SC.Widget(widgetIframe);
     $('#next').on('click', function() {
       $('.colors').show();
       $('#newLoopName').hide();
@@ -269,10 +270,8 @@
       $('.saveLoop').show();
       $('.saveLoopSong').show();
       $('#next').hide();
-      var widgetIframe = document.getElementById('sc-widget'),
-        widget       = SC.Widget(widgetIframe),
-        newSoundUrl = 'http://api.soundcloud.com/tracks/193781466';
-      widget.load(newSoundUrl, {
+      var soundCloudUrl = $('#newLoopSongName').val();
+      widget.load(soundCloudUrl, {
             show_artwork: true,
             auto_play:true,
             hide_related:true
@@ -282,6 +281,7 @@
     $('#existingLoops').on('click', function() {
       $('.colors').toggle();
       $('#loops').toggle();
+      widget.pause();
     });
 
     var saveLoop = $(".saveLoop");
@@ -293,14 +293,14 @@
         current.time = current.time - currentLoop[i-1].time
       }
       currentLoop[0].time = 0;
+      var soundCloudUrl = $('#newLoopSongName').val();
       var loop = {
         name: loopName,
-        list: currentLoop
+        list: currentLoop,
+        soundCloudUrl: soundCloudUrl
       }
       //save to firebase
       loopRef.push(loop);
-      var widgetIframe = document.getElementById('sc-widget'),
-        widget       = SC.Widget(widgetIframe);
       widget.pause();
       $('.saveLoop').hide();
       $('.saveLoopSong').hide();
@@ -317,17 +317,14 @@
     }
     var loopClickFn = function(e) {
       $(".playLoopSong").show();
-      var widgetIframe = document.getElementById('sc-widget'),
-      widget       = SC.Widget(widgetIframe),
-      newSoundUrl = 'http://api.soundcloud.com/tracks/193781466';
-      widget.load(newSoundUrl, {
+      var a = $(e.currentTarget);
+      if (loopsAvailable[a.text()]) {
+        var runningLoop = loopsAvailable[a.text()];
+        widget.load(runningLoop.soundCloudUrl, {
           show_artwork: true,
           auto_play:true,
           hide_related:true
         });
-      var a = $(e.currentTarget);
-      if (loopsAvailable[a.text()]) {
-        var runningLoop = loopsAvailable[a.text()];
         var tm = 2;
         for (var i = 0 ; i < runningLoop.list.length; i++) {
           tm += runningLoop.list[i].time;
