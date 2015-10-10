@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+    <style type="text/css">
+      body {
+          background: -webkit-linear-gradient(281deg,#0c63aa,#7ac5fa);
+          background: linear-gradient(169deg,#0c63aa,#7ac5fa);
+          background-color: #0c63aa;
+      }
+    </style>
+  </head>
+  <body>
+    <div id='messagesDiv'></div>
+    <!-- <input type='text' id='nameInput' placeholder='Name'>
+    <input type='text' id='messageInput' placeholder='Message'> -->
+    
+    <script>
+      var myDataRef = new Firebase('https://sizzling-inferno-9561.firebaseIO.com/message');
+      var myDataRef2 = new Firebase('https://sizzling-inferno-9561.firebaseIO.com/word');
+      function myFunction() {
+          var x = document.getElementById("fname").value;
+          document.getElementById("demo").innerHTML = x;
+          myDataRef.set(x);
+      }
+      function word() {
+        var x = document.getElementById("fname").value;
+        myDataRef2.push(x);
+        document.getElementById("fname").value = "";
+      }
+    </script>
+    <div id="demo"></div><br>
+    <input type="text" id="fname" onkeyup="myFunction()">
+    <button onclick="word()">Send</button>
+    
+
+
+    <script>
+      
+      // $('button').click(function (e) {
+        
+      //     var name = $('#nameInput').val();
+      //     var text = $('#messageInput').val();
+      //     myDataRef.push({name: name, text: text});
+      //     $('#messageInput').val('');
+        
+      // });
+      // $('#messageInput').keypress(function (e) {
+      //   if (e.keyCode == 13) {
+      //     var name = $('#nameInput').val();
+      //     var text = $('#messageInput').val();
+      //     myDataRef.push({name: name, text: text});
+      //     $('#messageInput').val('');
+      //   }
+      // });
+      // myDataRef.on('child_added', function(snapshot) {
+      //   var message = snapshot.val();
+      //   console.log(message);
+      //   displayChatMessage(message.name, message.text);
+      // });
+      myDataRef.on("value", function(snapshot) {
+        displayChatMessage(snapshot.val(),"");
+      });
+      // myDataRef.on('child_added', function(snapshot) {
+      //   var message = snapshot.val();
+      //   displayChatMessage(message.name, message.text);
+      // });
+      function displayChatMessage(name, text) {
+        $('<div/>').text(text).prepend($('<em/>').text(name+' ')).appendTo($('#messagesDiv'));
+        $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+      };
+    </script>
+  </body>
+</html>
