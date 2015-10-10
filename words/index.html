@@ -5,23 +5,35 @@
   </head>
   <body>
     <script type="text/javascript">
-      var myDataRef = new Firebase('https://sizzling-inferno-9561.firebaseIO.com/message');
-      var myDataRef2 = new Firebase('https://sizzling-inferno-9561.firebaseIO.com/word');
-      var query = window.location.search.substring(1);
-      console.log(query);
-      myDataRef.on("value", function(snapshot) {
+      // var myDataRef = new Firebase('https://sizzling-inferno-9561.firebaseIO.com/message');
+      // var myDataRef2 = new Firebase('https://sizzling-inferno-9561.firebaseIO.com/word');
+      // var query = window.location.search.substring(1);
+      // console.log(query);
+      // myDataRef.on("value", function(snapshot) {
         
-        if(snapshot.val()[query] != undefined) {
-          document.getElementById('demo').innerHTML = snapshot.val()[query];
-        }
-      });
-      myDataRef2.on("child_added", function(snapshot) {
+      //   if(snapshot.val()[query] != undefined) {
+      //     document.getElementById('demo').innerHTML = snapshot.val()[query];
+      //   }
+      // });
+      // myDataRef2.on("child_added", function(snapshot) {
         
-        document.getElementById('demo').innerHTML = "";
+      //   document.getElementById('demo').innerHTML = "";
         
-      });
+      // });
     </script>
-    <div id="demo" style="font-size:600px;text-align:center;font-family: Papyrus, fantasy;">
-    </div>
+    <!-- <div id="demo" style="font-size:600px;text-align:center;font-family: Papyrus, fantasy;">
+    </div> -->
+
+    <table>
+      <tr><td><a href="words/client.html?0">One</a></td></tr>
+      <tr><td><a href="words/client.html?1">Two</a></td></tr>
+      <tr><td><a href="words/client.html?2">Three</a></td></tr>
+      <tr><td><a href="words/client.html?3">Four</a></td></tr>
+      <tr><td><a href="words/client.html?4">Five</a></td></tr>
+      <tr><td><a href="words/client.html?5">Six</a></td></tr>
+      <tr><td><a href="words/client.html?6">Seven</a></td></tr>
+      <tr><td><a href="words/client.html?7">Eight</a></td></tr>
+      <tr><td><a href="words/client.html?8">Nine</a></td></tr>
+    </table>
   </body>
 </html>

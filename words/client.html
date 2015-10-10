@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var myDataRef = new Firebase('https://sizzling-inferno-9561.firebaseIO.com/message');
+      var myDataRef2 = new Firebase('https://sizzling-inferno-9561.firebaseIO.com/word');
+      var query = window.location.search.substring(1);
+      console.log(query);
+      myDataRef.on("value", function(snapshot) {
+        if(snapshot.val()[query] != undefined) {
+          document.getElementById('demo').innerHTML = snapshot.val()[query];
+        }
+      });
+      myDataRef2.on("child_added", function(snapshot) {
+        
+        document.getElementById('demo').innerHTML = "";
+        
+      });
+    </script>
+    <div id="demo" style="font-size:600px;text-align:center;font-family: Papyrus, fantasy;">
+    </div>
+  </body>
+</html>
